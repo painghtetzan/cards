@@ -40,7 +40,7 @@ app.post('/addcard',async(req,res)=>{
     const [name,pic] = req.body
     try{
         let connection = await sql.createConnection(dbConfig)
-        await connection.execute('INSERT INTO card (card_name,card_pic) VALUES (?,?)'),[name,pic]
+        await connection.execute('INSERT INTO card (card_name,card_pic) VALUES (?,?)',[name,pic])
         res.status(201).send(`added ${name} to database successfully!`)
     }catch(error){
         console.error(error,"error adding card")
