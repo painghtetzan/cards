@@ -37,7 +37,7 @@ app.get('/allcards',async(req,res)=>{
 
 
 app.post('/addcard',async(req,res)=>{
-    const [name,pic] = req.body
+    const {name,pic} = req.body
     try{
         let connection = await sql.createConnection(dbConfig)
         await connection.execute('INSERT INTO card (card_name,card_pic) VALUES (?,?)',[name,pic])
