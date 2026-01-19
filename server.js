@@ -14,7 +14,7 @@ const dbConfig ={
     connectionLimit:100,
     queueLimit:0
 }
-const frontendsite = process.env.FRONTEND-SITE
+const frontendsite = process.env.FRONTEND_SITE
 
 app.use(cors({
     origin:[
