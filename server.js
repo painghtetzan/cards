@@ -1,5 +1,5 @@
 const express = require("express")
-const cors = require('cores')
+const cors = require('cors')
 const sql = require('mysql2/promise')
 require('dotenv').config()
 const port = 3000
@@ -16,12 +16,13 @@ const dbConfig ={
 }
 const frontendsite = process.env.FRONTEND_SITE
 
+
+const app = express()
 app.use(cors({
     origin:[
         'http://localhost:3000/', frontendsite
     ]
 }))
-const app = express()
 app.use(express.json())
 
 
