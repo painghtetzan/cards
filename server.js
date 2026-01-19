@@ -20,7 +20,7 @@ const frontendsite = process.env.FRONTEND_SITE
 const app = express()
 app.use(cors({
     origin:[
-        'http://localhost:3000/', frontendsite
+        'http://localhost:3000', frontendsite
     ]
 }))
 app.use(express.json())
@@ -32,8 +32,9 @@ app.listen(port,()=>{
 })
 
 app.get('/allcards',async(req,res)=>{
+    let connection
     try{
-        let connection = await sql.createConnection(dbConfig)
+        connection = await sql.createConnection(dbConfig)
         const [rows] = await connection.execute('SELECT * FROM defaultdb.card');
         res.json(rows)
         console.log(rows)
@@ -48,8 +49,9 @@ app.get('/allcards',async(req,res)=>{
 
 app.post('/addcard',async(req,res)=>{
     const {name,pic} = req.body
+    let connection
     try{
-        let connection = await sql.createConnection(dbConfig)
+        connection = await sql.createConnection(dbConfig)
         await connection.execute('INSERT INTO card (card_name,card_pic) VALUES (?,?)',[name,pic])
         res.status(201).send(`added ${name} to database successfully!`)
     }catch(error){
@@ -63,9 +65,9 @@ app.post('/addcard',async(req,res)=>{
 app.put('/editcard/:id',async(req,res)=>{
     const {name,pic} = req.body
     const id = req.params.id
-
+    let connection
     try{
-        let connection = await sql.createConnection(dbConfig)
+        connection = await sql.createConnection(dbConfig)
         await connection.execute('UPDATE card SET card_name =?, card_pic=?  WHERE id=?',[name,pic,id])
         res.status(202).send(`Updated card ${name} Successfully!`)
     }catch(error){
@@ -78,9 +80,9 @@ app.put('/editcard/:id',async(req,res)=>{
 
 app.delete('/deletecard/:id',async(req,res)=>{
     const id = req.params.id
-    
+    let connection
     try{
-        let connection = await sql.createConnection(dbConfig)
+        connection = await sql.createConnection(dbConfig)
         await connection.execute('DELETE FROM card WHERE id =?',[id])
         res.status(203).send('Successfully deleted')
     }catch(error){
