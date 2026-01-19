@@ -32,6 +32,8 @@ app.get('/allcards',async(req,res)=>{
     }catch(err){
         console.error(err)
         res.status(500).json({message:'Server error for all cards.'})
+    }finally{
+       await connection.end()
     }
 })
 
@@ -45,6 +47,8 @@ app.post('/addcard',async(req,res)=>{
     }catch(error){
         console.error(error,"error adding card")
         res.status(500).send('error adding card')
+    }finally{
+       await connection.end()
     }
 })
 
@@ -59,6 +63,8 @@ app.put('/editcard/:id',async(req,res)=>{
     }catch(error){
         console.error(error)
         res.status(500).send('error updating card')
+    }finally{
+       await connection.end()
     }
 })
 
@@ -72,5 +78,7 @@ app.delete('/deletecard/:id',async(req,res)=>{
     }catch(error){
         console.error(error)
         res.status(500).send('error deleting card.')
+    }finally{
+       await connection.end()
     }
 })
