@@ -2,7 +2,7 @@ const express = require("express")
 const cors = require('cors')
 const sql = require('mysql2/promise')
 require('dotenv').config()
-const port = 3000
+const port = process.env.PORT || 5000
 
 const dbConfig ={
     host:process.env.DB_HOST,
@@ -15,12 +15,12 @@ const dbConfig ={
     queueLimit:0
 }
 const frontendsite = process.env.FRONTEND_SITE
-
+const frontendsite2 = process.env.FRONTEND_SITE2
 
 const app = express()
 app.use(cors({
     origin:[
-        'http://localhost:3000', frontendsite
+        'http://localhost:3000', frontendsite ,
     ]
 }))
 app.use(express.json())
@@ -84,7 +84,7 @@ app.delete('/deletecard/:id',async(req,res)=>{
     try{
         connection = await sql.createConnection(dbConfig)
         await connection.execute('DELETE FROM card WHERE id =?',[id])
-        res.status(203).send('Successfully deleted')
+        res.status(200).send('Successfully deleted')
     }catch(error){
         console.error(error)
         res.status(500).send('error deleting card.')
