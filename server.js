@@ -20,7 +20,7 @@ const frontendsite2 = process.env.FRONTEND_SITE2
 const app = express()
 app.use(cors({
     origin:[
-        'http://localhost:3000', frontendsite ,
+        'http://localhost:3000', frontendsite ,frontendsite2
     ]
 }))
 app.use(express.json())
